@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+/src/components/data/mail.js
+
 # production
 /build
 

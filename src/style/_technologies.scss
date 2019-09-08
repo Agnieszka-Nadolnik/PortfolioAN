@@ -1,0 +1,58 @@
+.technologies_container {
+    margin-top: 3rem;
+    background-color: #f9fafc;
+
+    .technologies_title {
+        @extend %title-container;
+        color: white;
+        background-color: $color;
+    }
+}
+
+
+.technologies_content {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+    
+    .sample_tech {
+        flex-grow: 1;
+        width: 30%;
+        height: 15rem;
+        padding: 2rem;
+        text-align: center;
+        background-color: #f6f7f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        transition: 0.3s;
+
+        &:nth-child(2n) {
+            background-color: #f9fafc;
+        }
+
+        &:hover,
+        &:hover i {
+            color: #cbcfd1;
+            background-color: $dark-color;
+        }
+
+        &:hover h5 {
+            color: $color;
+        }
+
+        i {
+            font-size: 5rem;
+            color:  #404a57;
+            transition: 0.3s;
+        }
+
+        h5 {
+            font-size: $text-font;
+            letter-spacing: 1px;   
+        }
+    }
+}
+

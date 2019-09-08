@@ -1,0 +1,66 @@
+$dark-color: #3a3a3a;
+$color: #46af98;
+$font-serif: 'Roboto Slab', serif;
+$title-font: 2rem;
+$text-font: 1.5rem;
+$alpha-text: rgba(255, 255,255, 0.8);
+
+
+$s-mobile: '(min-width: 480px)';
+$m-mobile: '(min-width: 600px)';
+$s-tablet: '(min-width: 768px)';
+$s-desktop: '(min-width: 850px)';
+$m-desktop: '(min-width: 1024px)';
+$l-desktop: '(min-width: 1280px)';
+$xl-desktop: '(min-width: 1366px)';
+$hd-desktop: '(min-width: 1600px)';
+
+$landscape-tablet: '(min-width: 500px) and (max-width: 899px) and (orientation: landscape)';
+$landscape: '(min-width: 600px) and (orientation: landscape)';
+
+
+%title-container {
+    padding: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+    @media #{$s-tablet} {
+        padding: 3rem 5rem;
+       }
+    @media #{$s-desktop} {
+        padding: 3rem 10rem;
+       }
+
+       .title {
+        padding-bottom: 1rem;
+        font-size: $title-font;
+        font-family: $font-serif;
+        font-weight: 300;
+    }
+
+    p {
+        font-size: $text-font;
+        font-weight: 300;
+        font-family: $font-serif;
+        
+
+        @media #{$s-tablet} {
+            width: 60%;
+            margin: 0 auto;
+           }
+
+        &::after {
+            content: '';
+            display: block;
+            border: 0.2px solid $dark-color;
+            width: 50px;
+            margin-top: 1rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+    }
+
+
+}
