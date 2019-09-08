@@ -45,8 +45,8 @@ export default [
         id: 5,
         name: 'Portfolio',
         classPage: 'portfolio',
-        gitHub: 'https://github.com/Agnieszka-Nadolnik',
-        live: 'https://github.com/Agnieszka-Nadolnik',
+        gitHub: 'https://agnieszkanadolnik.pl',
+        live: 'https://github.com/Agnieszka-Nadolnik/PortfolioAN',
         description: 'Strona wizytówka - technologie: HTML5, Sass, JS, React.js', 
         grid: 'portfolio'
     },

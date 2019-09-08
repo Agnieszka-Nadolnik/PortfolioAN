@@ -8,7 +8,6 @@ class ContactForm extends Component {
         username: '',
         email: '',
         message: '',
-        accept: false,
         info: '',
         isVerified: false,
 
@@ -16,8 +15,6 @@ class ContactForm extends Component {
             username: false,
             email: false,
             message: false,
-            accept: false,
-            isVerified: false,
         }
     }
 
@@ -25,7 +22,6 @@ class ContactForm extends Component {
         username_incorrect: 'Pole musi zostać wypełnione',
         email_incorrect: 'Brak znaku @ ',
         message_incorrect: "Proszę wypełnić pole",
-        accept_incorrect: 'Brak zgody',
     }
 
 
@@ -39,14 +35,17 @@ class ContactForm extends Component {
             this.setState({
              [name]: value,
             });
-        } else if( type === 'checkbox') {
-            const checked = e.target.checked;
-    
-            this.setState({
-             [name]: checked,
-            });
         } 
     }
+
+      verifyCallback = (response) => {
+        console.log(response);
+        if(response) {
+            this.setState({
+                isVerified: true,
+            })
+        }
+      };
 
 
     handleSubmit = (e) => {
@@ -73,26 +72,20 @@ class ContactForm extends Component {
                 username: '',
                 email: '',
                 message: '',
-                accept: '',
                 info: 'Wiadomość została wysłana',
 
                 errors : {
                     username: false,
                     email: false,
                     message: false,
-                    accept: false,
                 }
             });
-
-
-
         } else {
             this.setState({
                 errors : {
                     username: !validation.username,
                     email: !validation.email,
                     message: !validation.message,
-                    accept: !validation.accept,
                 }
             })
         }
@@ -102,7 +95,6 @@ class ContactForm extends Component {
         let username = false;
         let email = false;
         let message = false;
-        let accept = false;
         let correct = false;
         let isVerified = false;
 
@@ -115,14 +107,11 @@ class ContactForm extends Component {
         if(this.state.message.length > 0) {
             message = true;
         }
-        if(this.state.accept) {
-            accept = true;
-        }
-        if(username && email && message && accept) {
-            correct = true;
-        }
         if(this.state.isVerified) {
             isVerified = true;
+        }
+        if(username && email && message && isVerified) {
+            correct = true;
         }
 
         return ({
@@ -130,32 +119,24 @@ class ContactForm extends Component {
             username,
             email,
             message,
-            accept,
-            isVerified,
-        })
+            isVerified
+        });
     }
 
     componentDidUpdate() {
         if(this.state.message !== '') {
-            setTimeout(() => this.setState({ info: ''}), 3000)
-        }
-    }
+            setTimeout(() => this.setState({ info: ''}), 10000)
+        };
+    };
 
     callback = () => {
         console.log('Done!!!!');
       };
 
-     verifyCallback = (response) => {
-        if(response) {
-            this.setState({
-             isVerified: true,
-            })
-        }
-      };
     render() {
 
         return (
-            <div id='contact' className="contact_form" >
+            <div id='contact' className="contact_form" style={{overflow: 'hidden'}}>
                 <form onSubmit={this.handleSubmit}>
                     <input id='name' type="text" name="username" placeholder='Name' value={this.state.username} onChange={this.handleChange} />
                    {this.state.errors.username && <span>{this.messages.username_incorrect}</span>}
@@ -163,15 +144,15 @@ class ContactForm extends Component {
                     {this.state.errors.email && <span>{this.messages.email_incorrect}</span>}
                     <textarea cols="30" rows="5" placeholder='Message' type='textarea' value={this.state.message} name='message' onChange={this.handleChange}></textarea>
                     {this.state.errors.message && <span>{this.messages.message_incorrect}</span>}
-                    <label htmlFor="accept"><input type="checkbox" onChange={this.handleChange} checked={this.state.accept} name='accept'/>Wyrażam zgodę na przetwarzanie moich danych</label>
-                    {this.state.errors.accept && <span>{this.messages.accept_incorrect}</span>}
+                    <div className="capt_style">
+                        <Recaptcha
+                            sitekey={dataMail.recaptcha}
+                            render="explicit"
+                            verifyCallback={this.verifyCallback}
+                            onloadCallback={this.callback}
+                        />
+                    </div>
                     <button type='submit' value="Send" name='accept'>Wyślij wiadomość</button>
-                    <Recaptcha
-                        sitekey={dataMail.recaptcha}
-                        render="explicit"
-                        verifyCallback={this.verifyCallback}
-                        onloadCallback={this.callback}
-                    />
                 </form>
                 {this.state.info && <h3>{this.state.info}</h3>}
             </div>
