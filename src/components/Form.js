@@ -104,6 +104,7 @@ class ContactForm extends Component {
         let message = false;
         let accept = false;
         let correct = false;
+        let isVerified = false;
 
         if(this.state.username.length > 0) {
             username = true;
@@ -120,13 +121,17 @@ class ContactForm extends Component {
         if(username && email && message && accept) {
             correct = true;
         }
+        if(this.state.isVerified) {
+            isVerified = true;
+        }
 
         return ({
             correct,
             username,
             email,
             message,
-            accept
+            accept,
+            isVerified,
         })
     }
 
